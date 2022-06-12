@@ -6,9 +6,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class InsurancePlan {
+public class InsurancePlan extends com.monocept.model.Entity {
 	
-	@Id
+	
 	private String name;
 	
 	@ManyToOne
@@ -25,7 +25,7 @@ public class InsurancePlan {
 	private double sumAssuredMin;
 	private double sumAssuredMax;
 	private double profitRatio;
-	private boolean status;
+
 	
 	public InsurancePlan() {
 		
@@ -47,7 +47,8 @@ public class InsurancePlan {
 		this.sumAssuredMin = sumAssuredMin;
 		this.sumAssuredMax = sumAssuredMax;
 		this.profitRatio = profitRatio;
-		this.status = status;
+		
+		super.setStatus(status);
 	}
 
 	public void setName(String name) {
@@ -98,10 +99,6 @@ public class InsurancePlan {
 		this.profitRatio = profitRatio;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -149,9 +146,4 @@ public class InsurancePlan {
 	public double getProfitRatio() {
 		return profitRatio;
 	}
-
-	public boolean getStatus() {
-		return status;
-	}
-	
 }

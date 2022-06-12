@@ -29,7 +29,7 @@ public class EmployeeRepository {
 	}
 	
 	public Employee getEmployeeById(int id) {
-		return (Employee) em.createQuery("FROM Employee WHERE loginId = "+id+" ").getSingleResult();
+		return (Employee) em.createQuery("FROM Employee WHERE id = "+id+" ").getSingleResult();
 	}
 	
 	@Transactional

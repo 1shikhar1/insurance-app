@@ -3,23 +3,26 @@ package com.monocept.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class MasterTransaction {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	private Timestamp time;
 	private String description;
 	private double amount;
-	private TransactionType type;
+	private String type;
 	
 	public MasterTransaction() {
 		
 	}
 	
-	public MasterTransaction(int id, Timestamp time, String description, double amount, TransactionType type) {
+	public MasterTransaction(int id, Timestamp time, String description, double amount, String type) {
 		super();
 		this.id = id;
 		this.time = time;
@@ -44,7 +47,7 @@ public class MasterTransaction {
 		this.amount = amount;
 	}
 
-	public void setType(TransactionType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -64,7 +67,7 @@ public class MasterTransaction {
 		return amount;
 	}
 
-	public TransactionType getType() {
+	public String getType() {
 		return type;
 	}
 	

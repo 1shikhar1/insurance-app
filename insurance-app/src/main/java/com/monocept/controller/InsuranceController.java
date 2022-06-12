@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +27,12 @@ public class InsuranceController {
 		return ResponseEntity.ok(true);
 	}
 	
-	@PostMapping("/insuranceType")
+	@GetMapping("/insuranceType")
 	public ResponseEntity<List<InsuranceType>> getInsuranceTypes(){
 		return ResponseEntity.ok(insuranceService.getInsuranceTypes());
 	}
 	
-	@PostMapping("/insuranceType/{name}")
+	@GetMapping("/insuranceType/{name}")
 	public ResponseEntity<InsuranceType> getInsuranceTypeByName(@PathVariable("name") String name) {
 		return ResponseEntity.ok(insuranceService.getInsuranceTypeByName(name));
 	}
@@ -50,6 +51,26 @@ public class InsuranceController {
 	public ResponseEntity<Boolean> addInsurancePlan(InsurancePlan plan) {
 		insuranceService.addInsurancePlan(plan);
 		return ResponseEntity.ok(true);
+	}
+	
+	@GetMapping("/insurancePlan")
+	public ResponseEntity<List<InsurancePlan>> getInsurancePlans(){
+		return ResponseEntity.ok(insuranceService.getInsurancePlans());
+	}
+	
+	@GetMapping("/insurancePlan/{name}")
+	public ResponseEntity<InsurancePlan> getInsurancePlanByName(@PathVariable("name") String name) {
+		return ResponseEntity.ok(insuranceService.getInsurancePlanByName(name));
+	}
+	
+	@PostMapping("/insurancePlan/{name}/activate")
+	public ResponseEntity<String> activateInsurancePlan(@PathVariable("name") String name) {
+		return ResponseEntity.ok(insuranceService.activateInsurancePlan(name));
+	}
+	
+	@PostMapping("/insurancePlan/{name}/deactivate")
+	public ResponseEntity<String> deactivateInsurancePlan(@PathVariable("name") String name) {
+		return ResponseEntity.ok(insuranceService.deactivateInsurancePlan(name));
 	}
 
 }
