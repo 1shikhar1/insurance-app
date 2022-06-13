@@ -5,12 +5,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.monocept.model.Policy;
 import com.monocept.model.dto.PolicyDto;
 import com.monocept.repository.PolicyRepository;
 
-@Repository
+@Service
 public class PolicyService {
 	@Autowired
 	private PolicyRepository repo;
@@ -27,6 +28,7 @@ public class PolicyService {
 	
 	public PolicyDto getPolicyById(int id) {
 		Policy p = repo.getPolicyById(id);
+		
 		return new PolicyDto(p.getId(), p.getCustomer().getName(), p.getInsuransePlan().getInsuranceType().getName(), p.getInsuransePlan().getName(), p.getCreatedDate(), p.getMaturityDate(), p.getPremiumType(), p.getPremiumAmount(), p.getProfitRatio(), p.getSumAssured(), p.getStatus(), p.isDeleted());
 	}
 	

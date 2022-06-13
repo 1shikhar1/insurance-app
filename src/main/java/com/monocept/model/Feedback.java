@@ -55,5 +55,13 @@ public class Feedback extends com.monocept.model.Entity {
 	public String getReply() {
 		return reply;
 	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 	
 }
