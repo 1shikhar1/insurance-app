@@ -29,52 +29,72 @@ public class InsuranceRepository {
 		return em.createQuery("From InsuranceType").getResultList();
 	}
 	
-	public InsuranceType getInsuranceTypeByName(String name) {
-		return (InsuranceType) em.createQuery("FROM InsuranceType WHERE name = "+name+" ").getSingleResult();
+	public InsuranceType getInsuranceTypeById(int id) {
+		return (InsuranceType) em.createQuery("FROM InsuranceType WHERE id = "+id+" ").getSingleResult();
 	}
 	
 	@Transactional
-	public String activateInsuranceType(String name) {
-		InsuranceType insuranceType = getInsuranceTypeByName(name);
+	public String activateInsuranceType(int id) {
+		InsuranceType insuranceType = getInsuranceTypeById(id);
 		insuranceType.setStatus(true);
 		em.merge(insuranceType);
 		return "activated";
 	}
 	
 	@Transactional
-	public String deactivateInsuranceType(String name) {
-		InsuranceType insuranceType = getInsuranceTypeByName(name);
+	public String deactivateInsuranceType(int id) {
+		InsuranceType insuranceType = getInsuranceTypeById(id);
 		insuranceType.setStatus(false);
 		em.merge(insuranceType);
 		return "deactivated";
 	}
 	
 	@Transactional
-	public void addInsurancePlan(InsurancePlan plan) {
-		em.persist(plan);
+	public String deleteInsuranceType(int id) {
+		InsuranceType insuranceType = getInsuranceTypeById(id);
+		insuranceType.setDeleted(true);
+		em.merge(insuranceType);
+		return "deleted";
+	}
+	
+	@Transactional
+	public void addInsurancePlan(InsurancePlan plan, int insuranceTypeId) {
+		InsuranceType insuranceType= (InsuranceType) em.createQuery("From InsuranceType where id = "+insuranceTypeId+" ").getSingleResult();
+		System.out.println(insuranceType.toString());
+		plan.setInsuranceType(insuranceType);
+		insuranceType.addInsurancePlans(plan);
+		em.merge(insuranceType);
 	}
 	
 	public List<InsurancePlan> getInsurancePlans(){
 		return em.createQuery("From InsurancePlan").getResultList();
 	}
 	
-	public InsurancePlan getInsurancePlanByName(String name) {
-		return (InsurancePlan) em.createQuery("FROM InsurancePlan WHERE name = "+name+" ").getSingleResult();
+	public InsurancePlan getInsurancePlanById(int id) {
+		return (InsurancePlan) em.createQuery("FROM InsurancePlan WHERE id = "+id+" ").getSingleResult();
 	}
 	
 	@Transactional
-	public String activateInsurancePlan(String name) {
-		InsurancePlan insurancePlan = getInsurancePlanByName(name);
+	public String activateInsurancePlan(int id) {
+		InsurancePlan insurancePlan = getInsurancePlanById(id);
 		insurancePlan.setStatus(true);
 		em.merge(insurancePlan);
 		return "activated";
 	}
 	
 	@Transactional
-	public String deactivateInsurancePlan(String name) {
-		InsurancePlan insurancePlan = getInsurancePlanByName(name);
+	public String deactivateInsurancePlan(int id) {
+		InsurancePlan insurancePlan = getInsurancePlanById(id);
 		insurancePlan.setStatus(false);
 		em.merge(insurancePlan);
 		return "deactivated";
+	}
+	
+	@Transactional
+	public String deleteInsurancePlan(int id) {
+		InsurancePlan insurancePlan = getInsurancePlanById(id);
+		insurancePlan.setDeleted(true);;
+		em.merge(insurancePlan);
+		return "deleted";
 	}
 }

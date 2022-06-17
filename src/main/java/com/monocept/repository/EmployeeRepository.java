@@ -47,4 +47,12 @@ public class EmployeeRepository {
 		em.merge(employee);
 		return "deactivated";
 	}
+	
+	@Transactional
+	public String deleteEmployee(int id) {
+		Employee employee = getEmployeeById(id);
+		employee.setDeleted(true);
+		em.merge(employee);
+		return "deleted";
+	}
 }
