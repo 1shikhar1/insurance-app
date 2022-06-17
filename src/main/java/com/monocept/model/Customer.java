@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Customer extends com.monocept.model.Entity{
+public class Customer extends com.monocept.model.Entity implements UserDetail{
 
 	private String password;
 	private String name;

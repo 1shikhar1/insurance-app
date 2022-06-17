@@ -10,71 +10,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class CustomerTransaction {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private Timestamp time;
-	private String description;
-	private double amount;
-	private String type;
+public class CustomerTransaction extends TransactionEntity{
 	
 	@ManyToOne
 	@JoinColumn
 	private Customer customer;
 	
 	public CustomerTransaction() {
-		
 	}
 	
 	public CustomerTransaction(Timestamp time, String description, double amount, String type) {
-		super();
-		this.time = time;
-		this.description = description;
-		this.amount = amount;
-		this.type = type;
+		super(time, description, amount, type);
 	}
 
-	public int getId() {
-		return id;
+	public CustomerTransaction( String description, double amount, String type) {
+		super( description, amount, type);
+	}
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
-
-	public Timestamp getTime() {
-		return time;
-	}
-
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-	
 	
 }

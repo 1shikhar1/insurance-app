@@ -10,15 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class AgentTransaction {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private Timestamp time;
-	private String description;
-	private double amount;
-	private String type;
+public class AgentTransaction extends TransactionEntity{
 	
 	@ManyToOne
 	@JoinColumn
@@ -27,45 +19,19 @@ public class AgentTransaction {
 	public AgentTransaction() {
 		
 	}
-
-	public int getId() {
-		return id;
+	
+	public AgentTransaction(Timestamp time, String description, double amount, String type) {
+		super(time, description, amount, type);
+	}
+	public AgentTransaction(String description, double amount, String type) {
+		super( description, amount, type);
+	}
+	public Agent getAgent() {
+		return agent;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Timestamp getTime() {
-		return time;
-	}
-
-	public void setTime(Timestamp time) {
-		this.time = time;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
 	
 }

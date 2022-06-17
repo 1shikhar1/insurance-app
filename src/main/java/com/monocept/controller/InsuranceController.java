@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.monocept.model.InsurancePlan;
 import com.monocept.model.InsuranceType;
+import com.monocept.model.dto.InsurancePlanDto;
 import com.monocept.service.InsuranceService;
 
 @RestController
@@ -32,45 +33,57 @@ public class InsuranceController {
 		return ResponseEntity.ok(insuranceService.getInsuranceTypes());
 	}
 	
-	@GetMapping("/insuranceType/{name}")
-	public ResponseEntity<InsuranceType> getInsuranceTypeByName(@PathVariable("name") String name) {
-		return ResponseEntity.ok(insuranceService.getInsuranceTypeByName(name));
+	@GetMapping("/insuranceType/{id}")
+	public ResponseEntity<InsuranceType> getInsuranceTypeById(@PathVariable("id") int id) {
+		return ResponseEntity.ok(insuranceService.getInsuranceTypeById(id));
 	}
 	
-	@PostMapping("/insuranceType/{name}/activate")
-	public ResponseEntity<String> activateInsuranceType(@PathVariable("name") String name) {
-		return ResponseEntity.ok(insuranceService.activateInsuranceType(name));
+	@GetMapping("/insuranceType/{id}/activate")
+	public ResponseEntity<String> activateInsuranceType(@PathVariable("id") int id) {
+		return ResponseEntity.ok(insuranceService.activateInsuranceType(id));
 	}
 	
-	@PostMapping("/insuranceType/{name}/deactivate")
-	public ResponseEntity<String> deactivateInsuranceType(@PathVariable("name") String name) {
-		return ResponseEntity.ok(insuranceService.deactivateInsuranceType(name));
+	@GetMapping("/insuranceType/{id}/deactivate")
+	public ResponseEntity<String> deactivateInsuranceType(@PathVariable("id") int id) {
+		return ResponseEntity.ok(insuranceService.deactivateInsuranceType(id));
 	}
 	
-	@PostMapping("/addInsurancePlan")
-	public ResponseEntity<Boolean> addInsurancePlan(InsurancePlan plan) {
-		insuranceService.addInsurancePlan(plan);
-		return ResponseEntity.ok(true);
+	@GetMapping("/insuranceType/{id}/delete")
+	public ResponseEntity<String> deleteInsuranceType(@PathVariable("id") int id){
+		return ResponseEntity.ok(insuranceService.deleteInsuranceType(id));
 	}
+	/////////////
 	
+	@PostMapping("/{id}/addInsurancePlan")
+	public ResponseEntity<InsurancePlan> addInsurancePlan(@RequestBody InsurancePlan plan,@PathVariable("id") int insuranceTypeId) {
+		System.out.println(insuranceTypeId+"  from controller");
+		insuranceService.addInsurancePlan(plan, insuranceTypeId);
+		return ResponseEntity.ok(plan);
+	}
+	//////////////////
 	@GetMapping("/insurancePlan")
-	public ResponseEntity<List<InsurancePlan>> getInsurancePlans(){
+	public ResponseEntity<List<InsurancePlanDto>> getInsurancePlans(){
 		return ResponseEntity.ok(insuranceService.getInsurancePlans());
 	}
 	
-	@GetMapping("/insurancePlan/{name}")
-	public ResponseEntity<InsurancePlan> getInsurancePlanByName(@PathVariable("name") String name) {
-		return ResponseEntity.ok(insuranceService.getInsurancePlanByName(name));
+	@GetMapping("/insurancePlan/{id}")
+	public ResponseEntity<InsurancePlanDto> getInsurancePlanById(@PathVariable("id") int id) {
+		return ResponseEntity.ok(insuranceService.getInsurancePlanById(id));
 	}
 	
-	@PostMapping("/insurancePlan/{name}/activate")
-	public ResponseEntity<String> activateInsurancePlan(@PathVariable("name") String name) {
-		return ResponseEntity.ok(insuranceService.activateInsurancePlan(name));
+	@GetMapping("/insurancePlan/{id}/activate")
+	public ResponseEntity<String> activateInsurancePlan(@PathVariable("id") int id) {
+		return ResponseEntity.ok(insuranceService.activateInsurancePlan(id));
 	}
 	
-	@PostMapping("/insurancePlan/{name}/deactivate")
-	public ResponseEntity<String> deactivateInsurancePlan(@PathVariable("name") String name) {
-		return ResponseEntity.ok(insuranceService.deactivateInsurancePlan(name));
+	@GetMapping("/insurancePlan/{id}/deactivate")
+	public ResponseEntity<String> deactivateInsurancePlan(@PathVariable("id") int id) {
+		return ResponseEntity.ok(insuranceService.deactivateInsurancePlan(id));
+	}
+	
+	@GetMapping("/insurancePlan/{id}/delete")
+	public ResponseEntity<String> deleteInsurancePlan(@PathVariable("id") int id){
+		return ResponseEntity.ok(insuranceService.deleteInsurancePlan(id));
 	}
 
 }

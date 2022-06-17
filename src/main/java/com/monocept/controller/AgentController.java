@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.monocept.model.Agent;
+import com.monocept.model.AgentTransaction;
+import com.monocept.model.Customer;
+import com.monocept.model.CustomerTransaction;
 import com.monocept.service.AgentService;
 
 @RestController
@@ -26,9 +29,9 @@ public class AgentController {
 	}
 
 	@PostMapping("/addAgent")
-	public ResponseEntity<Boolean> addAgent(@RequestBody Agent agent) {
+	public ResponseEntity<Agent> addAgent(@RequestBody Agent agent) {
 		agentService.addAgent(agent);
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(agent);
 	}
 
 	@GetMapping("/{id}")
@@ -49,5 +52,13 @@ public class AgentController {
 	@GetMapping("/{id}/delete")
 	public ResponseEntity<String> deleteAgent(@PathVariable("id") int id) {
 		return ResponseEntity.ok(agentService.deleteAgent(id));
+	}
+	@PostMapping("/{agentId}/addAgentTransaction")
+	public ResponseEntity<Agent> addCustomerTransaction(@PathVariable("agentId") int agentId,    @RequestBody AgentTransaction agentTransaction){
+		return ResponseEntity.ok(agentService.addAgentTransaction(agentId, agentTransaction));
+	}
+	@GetMapping("/{agentId}/getTransactions")
+	public ResponseEntity<List<AgentTransaction>> getSingleTransaction(@PathVariable("agentId") int agentId){
+		return ResponseEntity.ok(agentService.getSingleAgentTransaction(agentId));
 	}
 }

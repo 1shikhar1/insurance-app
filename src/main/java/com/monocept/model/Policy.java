@@ -12,8 +12,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class Policy extends com.monocept.model.Entity {
 	
-	private Date createdDate;
-	private Date maturityDate;
+	private Timestamp createdDate;
+	private Timestamp maturityDate;
 	private String premiumType;
 	private double premiumAmount;
 	private double profitRatio;
@@ -21,7 +21,7 @@ public class Policy extends com.monocept.model.Entity {
 	
 	@OneToOne
 	@JoinColumn
-	private InsurancePlan insuransePlan;
+	private InsurancePlan insurancePlan;
 	
 	@ManyToOne
 	private Agent agent;
@@ -34,8 +34,8 @@ public class Policy extends com.monocept.model.Entity {
 		
 	}
 
-	public Policy(Date createdDate, Date maturityDate, String premiumType, double premiumAmount, double profitRatio,
-			double sumAssured) {
+	public Policy(Timestamp createdDate, Timestamp maturityDate, String premiumType, double premiumAmount,
+			double profitRatio, double sumAssured) {
 		super();
 		this.createdDate = createdDate;
 		this.maturityDate = maturityDate;
@@ -43,21 +43,22 @@ public class Policy extends com.monocept.model.Entity {
 		this.premiumAmount = premiumAmount;
 		this.profitRatio = profitRatio;
 		this.sumAssured = sumAssured;
+	
 	}
 
-	public Date getCreatedDate() {
+	public Timestamp getCreatedDate() {
 		return createdDate;
 	}
 
-	public void setCreatedDate(Date createdDate) {
+	public void setCreatedDate(Timestamp createdDate) {
 		this.createdDate = createdDate;
 	}
 
-	public Date getMaturityDate() {
+	public Timestamp getMaturityDate() {
 		return maturityDate;
 	}
 
-	public void setMaturityDate(Date maturityDate) {
+	public void setMaturityDate(Timestamp maturityDate) {
 		this.maturityDate = maturityDate;
 	}
 
@@ -93,12 +94,20 @@ public class Policy extends com.monocept.model.Entity {
 		this.sumAssured = sumAssured;
 	}
 
-	public InsurancePlan getInsuransePlan() {
-		return insuransePlan;
+	public InsurancePlan getInsurancePlan() {
+		return insurancePlan;
 	}
 
-	public void setInsuransePlan(InsurancePlan insuransePlan) {
-		this.insuransePlan = insuransePlan;
+	public void setInsurancePlan(InsurancePlan insurancePlan) {
+		this.insurancePlan = insurancePlan;
+	}
+
+	public Agent getAgent() {
+		return agent;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
 
 	public Customer getCustomer() {
@@ -108,5 +117,8 @@ public class Policy extends com.monocept.model.Entity {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+
+	
 
 }
