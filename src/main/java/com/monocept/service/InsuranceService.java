@@ -1,12 +1,14 @@
 package com.monocept.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.monocept.model.InsurancePlan;
 import com.monocept.model.InsuranceType;
+import com.monocept.model.dto.InsurancePlanDto;
 import com.monocept.repository.InsuranceRepository;
 
 @Service
@@ -26,35 +28,48 @@ public class InsuranceService {
 		return repo.getInsuranceTypes();
 	}
 	
-	public InsuranceType getInsuranceTypeByName(String name) {
-		return repo.getInsuranceTypeByName(name);
+	public InsuranceType getInsuranceTypeById(int id) {
+		return repo.getInsuranceTypeById(id);
 	}
 	
-	public String activateInsuranceType(String name) {
-		return repo.activateInsuranceType(name);
+	public String activateInsuranceType(int id) {
+		return repo.activateInsuranceType(id);
 	}
 	
-	public String deactivateInsuranceType(String name) {
-		return repo.deactivateInsuranceType(name);
+	public String deactivateInsuranceType(int id) {
+		return repo.deactivateInsuranceType(id);
 	}
 	
-	public void addInsurancePlan(InsurancePlan plan) {
-		repo.addInsurancePlan(plan);
+	public String deleteInsuranceType(int id) {
+		return repo.deleteInsuranceType(id);
 	}
 	
-	public List<InsurancePlan> getInsurancePlans(){
-		return repo.getInsurancePlans();
+	public void addInsurancePlan(InsurancePlan plan, int insuranceTypeId) {
+		repo.addInsurancePlan(plan, insuranceTypeId);
 	}
 	
-	public InsurancePlan getInsurancePlanByName(String name) {
-		return repo.getInsurancePlanByName(name);
+	public List<InsurancePlanDto> getInsurancePlans(){
+		return repo.getInsurancePlans().stream().map(p-> new InsurancePlanDto(p.getId(),p.getName() , p.getInsuranceType().getName(), p.getDescription(), p.getNewRegistrationCommission(), p.getInstallmentPaymentCommission(), p.getPolicyTermMin(), p.getPolicyTermMax(), p.getMinAge(), p.getMaxAge(), p.getSumAssuredMin(), p.getSumAssuredMax(), p.getProfitRatio(), p.getStatus(), p.isDeleted())).collect(Collectors.toList());
 	}
 	
-	public String activateInsurancePlan(String name) {
-		return repo.activateInsurancePlan(name);
+	
+	public InsurancePlanDto getInsurancePlanById(int id) {
+		InsurancePlan p = repo.getInsurancePlanById(id);   
+		return new InsurancePlanDto(p.getId(),p.getName() , p.getInsuranceType().getName(), p.getDescription(), p.getNewRegistrationCommission(), p.getInstallmentPaymentCommission(), p.getPolicyTermMin(), p.getPolicyTermMax(), p.getMinAge(), p.getMaxAge(), p.getSumAssuredMin(), p.getSumAssuredMax(), p.getProfitRatio(), p.getStatus(), p.isDeleted());
+	}
+	public InsurancePlan getInsurancePlanByIdFull(int id) {
+		InsurancePlan p = repo.getInsurancePlanById(id);   
+		return p;
+	}
+	public String activateInsurancePlan(int id) {
+		return repo.activateInsurancePlan(id);
 	}
 	
-	public String deactivateInsurancePlan(String name) {
-		return repo.deactivateInsurancePlan(name);
+	public String deactivateInsurancePlan(int id) {
+		return repo.deactivateInsurancePlan(id);
+	}
+	
+	public String deleteInsurancePlan(int id) {
+		return repo.deleteInsurancePlan(id);
 	}
 }
