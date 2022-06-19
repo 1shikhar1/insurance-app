@@ -21,9 +21,12 @@ public class CustomerService {
 	@Autowired
 	CustomerRepository customerRepository;
 
+<<<<<<< HEAD
 	@Autowired
 	EmailSender emailSender;
 
+=======
+>>>>>>> 74c49292208da4834c60ca01fddb63b294dbd335
 	public CustomerService() {
 
 	}
@@ -78,9 +81,14 @@ public class CustomerService {
 	}
 
 	public List<CustomerTransactionDto> getSingleCustomerTransaction(int customerId) {
+<<<<<<< HEAD
 		return customerRepository
 				.getSingleCustomerTransaction(customerId).stream().map(c -> new CustomerTransactionDto(customerId,
 						c.getCustomer().getName(), c.getTime(), c.getDescription(), c.getAmount(), c.getType()))
 				.collect(Collectors.toList());
+=======
+		return customerRepository.getSingleCustomerTransaction(customerId).stream()
+				.map(c -> new CustomerTransactionDto(customerId,c.getCustomer().getName(), c.getTime(), c.getDescription(),c.getAmount(),c.getType())).collect(Collectors.toList());
+>>>>>>> 74c49292208da4834c60ca01fddb63b294dbd335
 	}
 }
