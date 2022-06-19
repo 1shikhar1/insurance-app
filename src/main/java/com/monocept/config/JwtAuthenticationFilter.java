@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String requestTokenHeader = request.getHeader("Authorization");
-		System.out.println("in the filtereeeeeeeeeeeeeeeeeeeeeeeeeee");
+	
 
 		String userName = null;
 		String jwtToken = null;
@@ -47,7 +47,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			try {
 				userName = this.jwtUtil.extractUsername(jwtToken);
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 			UserDetails userDetails = this.customUserDetailService.loadUserByUsername(userName);
 

@@ -37,17 +37,17 @@ public class EmployeeController {
 	public ResponseEntity<Employee> getEmployeeById(@PathVariable("id") int id){
 		return ResponseEntity.ok(employeeService.getEmployeeById(id));
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/activate")
 	public ResponseEntity<String> activateEmployee(@PathVariable("id") int id){
 		return ResponseEntity.ok(employeeService.activateEmployee(id));
 	}
-
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/deactivate")
 	public ResponseEntity<String> deactivateEmployee(@PathVariable("id") int id){
 		return ResponseEntity.ok(employeeService.deactivateEmployee(id));
 	}
-
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/{id}/delete")
 	public ResponseEntity<String> deleteEmployee(@PathVariable("id") int id){
 		return ResponseEntity.ok(employeeService.deleteEmployee(id));

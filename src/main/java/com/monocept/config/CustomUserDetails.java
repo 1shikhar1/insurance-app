@@ -20,9 +20,8 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		System.out.println("------" + userDetail.getType());
+	  
 		String role = userDetail.getType().toUpperCase();
-		System.out.println(role + "    ===============================");
 		SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(role);
 		List<SimpleGrantedAuthority> lists = new ArrayList<SimpleGrantedAuthority>();
 		lists.add(simpleGrantedAuthority);
@@ -31,31 +30,30 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return userDetail.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return String.valueOf(userDetail.getId());
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
+	
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
+
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
+		if(userDetail.isDeleted())
+			return false;
 		return true;
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,9 +24,9 @@ public class InsuranceController {
 	private InsuranceService insuranceService;
 	
 	@PostMapping("/addInsuranceType")
-	public ResponseEntity<Boolean> addInsuranceType(@RequestBody InsuranceType type) {
+	public ResponseEntity<InsuranceType> addInsuranceType(@RequestBody InsuranceType type) {
 		insuranceService.addInsuranceType(type);
-		return ResponseEntity.ok(true);
+		return ResponseEntity.ok(type);
 	}
 	
 	@GetMapping("/insuranceType")
@@ -37,17 +38,17 @@ public class InsuranceController {
 	public ResponseEntity<InsuranceType> getInsuranceTypeById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(insuranceService.getInsuranceTypeById(id));
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/insuranceType/{id}/activate")
 	public ResponseEntity<String> activateInsuranceType(@PathVariable("id") int id) {
 		return ResponseEntity.ok(insuranceService.activateInsuranceType(id));
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/insuranceType/{id}/deactivate")
 	public ResponseEntity<String> deactivateInsuranceType(@PathVariable("id") int id) {
 		return ResponseEntity.ok(insuranceService.deactivateInsuranceType(id));
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/insuranceType/{id}/delete")
 	public ResponseEntity<String> deleteInsuranceType(@PathVariable("id") int id){
 		return ResponseEntity.ok(insuranceService.deleteInsuranceType(id));
@@ -70,17 +71,17 @@ public class InsuranceController {
 	public ResponseEntity<InsurancePlanDto> getInsurancePlanById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(insuranceService.getInsurancePlanById(id));
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/insurancePlan/{id}/activate")
 	public ResponseEntity<String> activateInsurancePlan(@PathVariable("id") int id) {
 		return ResponseEntity.ok(insuranceService.activateInsurancePlan(id));
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/insurancePlan/{id}/deactivate")
 	public ResponseEntity<String> deactivateInsurancePlan(@PathVariable("id") int id) {
 		return ResponseEntity.ok(insuranceService.deactivateInsurancePlan(id));
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping("/insurancePlan/{id}/delete")
 	public ResponseEntity<String> deleteInsurancePlan(@PathVariable("id") int id){
 		return ResponseEntity.ok(insuranceService.deleteInsurancePlan(id));

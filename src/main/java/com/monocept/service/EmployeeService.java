@@ -37,4 +37,7 @@ public class EmployeeService {
 		return repo.deactivateEmployee(id);
 	}
 
+	public String deleteEmployee(int id) {
+		return repo.deleteEmployee(id);
+	}
 }
