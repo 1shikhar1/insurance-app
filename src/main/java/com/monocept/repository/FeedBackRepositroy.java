@@ -18,6 +18,8 @@ public class FeedBackRepositroy {
 	
 	@Transactional
 	public ReplyDto addFeedBack(int id,ReplyDto replyDto) {
+		System.err.println("Inside addFeedback Repo: ---->"+replyDto.getMessage());
+		
 		Feedback feedBack= (Feedback) entityManager.createQuery("From Feedback WHERE id= "+id+"").getSingleResult();
 		feedBack.setReply(replyDto.getMessage());
 		entityManager.merge(feedBack);

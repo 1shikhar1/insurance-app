@@ -39,12 +39,15 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
 		.cors()
 		.disable()
 		.authorizeRequests()
-		.antMatchers("/api/v1/login/**").permitAll()
+//		.antMatchers("/api/v1/login/**").permitAll()
+		.antMatchers("/swagger-ui/#/").permitAll()
 				.anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 	}
+	
+	
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {

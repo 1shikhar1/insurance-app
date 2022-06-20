@@ -43,9 +43,9 @@ public class CustomerController {
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<Customer> singleCustomer(@PathVariable("id") int id){
+	public ResponseEntity<CustomerDto> singleCustomer(@PathVariable("id") int id){
 		System.out.println(id);
-		return ResponseEntity.ok(customerService.getSingleId(id));
+		return ResponseEntity.ok(customerService.getCustomerById(id));
 	}
 	@PreAuthorize("hasAuthority('ADMIN')")
 	@GetMapping(path = "/{id}/activate")

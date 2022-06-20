@@ -10,20 +10,19 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.monocept.model.MasterTransaction;
+import com.monocept.model.AgentTransaction;
 
 @Repository
-public class MasterTransactionRepository {
-
+public class AgentTransactionRepository {
 	@PersistenceContext
 	private EntityManager em;
-
-	public MasterTransactionRepository() {
-
+	
+	public AgentTransactionRepository() {
+		
 	}
 
 	@Transactional
-	public String addTransaction(MasterTransaction transaction) {
+	public String addTransaction(AgentTransaction transaction) {
 		Date date = new Date();
 		Timestamp time = new Timestamp(date.getTime());
 		transaction.setTime(time);
@@ -31,8 +30,9 @@ public class MasterTransactionRepository {
 		em.persist(transaction);
 		return "Transaction Added";
 	}
-	public List<MasterTransaction> getAllMasterTransaction(){
-		return em.createQuery("From MasterTransaction").getResultList();
+	public List<AgentTransaction> getAgentTransactions(){
+		return em.createQuery("From AgentTransaction").getResultList();
 		
 	}
+
 }

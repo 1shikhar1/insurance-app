@@ -21,12 +21,9 @@ public class CustomerService {
 	@Autowired
 	CustomerRepository customerRepository;
 
-<<<<<<< HEAD
 	@Autowired
 	EmailSender emailSender;
 
-=======
->>>>>>> 74c49292208da4834c60ca01fddb63b294dbd335
 	public CustomerService() {
 
 	}
@@ -39,6 +36,11 @@ public class CustomerService {
 				.collect(Collectors.toList());
 
 	}
+	
+	public CustomerDto getCustomerById(int id) {
+		Customer c = customerRepository.getSingleCustomer(id);
+		return new CustomerDto(c.getId(), c.getName(), c.getDob(), c.getAddress(), c.getCity(), c.getState(), c.getPinCode(), c.getEmail(), c.getNumber(), c.getNominee(), c.getNomineeRelation(), c.getStatus(), c.isDeleted());
+	}
 
 	public Customer getSingleId(int id) {
 		return customerRepository.getSingleCustomer(id);
@@ -46,9 +48,8 @@ public class CustomerService {
 
 	public Customer addCustomer(Customer customer) {
 		Customer customerGet = customerRepository.addCustomer(customer);
-		emailSender.sendEmail(customer.getEmail(), "thanks for createding account",
-				"we welcome you in our bank your id is " + customerGet.getId() + " for login "
-						+ ". Incase of Any assitance call 1800 500 400");
+		emailSender.sendEmail(customer.getEmail(), "Your account created successfully!",
+				"Welcome to Lac Life Insurance your id is " + customerGet.getId() +"For any assitance call 1800 180 000");
 		return customerGet;
 	}
 
@@ -81,14 +82,9 @@ public class CustomerService {
 	}
 
 	public List<CustomerTransactionDto> getSingleCustomerTransaction(int customerId) {
-<<<<<<< HEAD
 		return customerRepository
 				.getSingleCustomerTransaction(customerId).stream().map(c -> new CustomerTransactionDto(customerId,
 						c.getCustomer().getName(), c.getTime(), c.getDescription(), c.getAmount(), c.getType()))
 				.collect(Collectors.toList());
-=======
-		return customerRepository.getSingleCustomerTransaction(customerId).stream()
-				.map(c -> new CustomerTransactionDto(customerId,c.getCustomer().getName(), c.getTime(), c.getDescription(),c.getAmount(),c.getType())).collect(Collectors.toList());
->>>>>>> 74c49292208da4834c60ca01fddb63b294dbd335
 	}
 }

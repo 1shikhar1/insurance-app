@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.monocept.model.Policy;
 import com.monocept.model.dto.InsurancePlanDto;
 import com.monocept.model.dto.PolicyDto;
 import com.monocept.model.dto.SendPolicyDto;
+import com.monocept.model.dto.ViewPolicyDto;
 import com.monocept.service.AgentService;
 import com.monocept.service.CustomerService;
 import com.monocept.service.InsuranceService;
@@ -42,6 +44,17 @@ public class PolicyController {
 	private AgentService agentService;
 	@Autowired
 	private MasterTransactionService masterService;
+	
+	@GetMapping()
+	public ResponseEntity<List<ViewPolicyDto>> getPolicies(){
+		return ResponseEntity.ok(policyService.getPolicies());
+	}
+	
+	
+	@GetMapping("/customer/{id}")
+	public ResponseEntity<List<ViewPolicyDto>> getPoliciesByCustomerId(@PathVariable("id") int id) {
+		return ResponseEntity.ok(policyService.getPoliciesByCustomerId(id));
+	}
 
 	@PostMapping("/addPolicy")
 	public ResponseEntity<SendPolicyDto> addPolicy(@RequestBody SendPolicyDto sendPolicy) {
@@ -63,22 +76,21 @@ public class PolicyController {
 			policy.setAgent(agent);
 			masterService.addTransaction(new MasterTransaction("debit", agentCommission, "commision to agent"));
 			agentService.addAgentTransaction(agent.getId(),
-					new AgentTransaction("commission on cutomer", agentCommission, "credit"));
+					new AgentTransaction("Commission", agentCommission, "credit"));
 		} catch (Exception e) {
 
 		}
 
-		masterService.addTransaction(new MasterTransaction("credit", sendPolicy.getAmount(), "customer buy policy"));// customer
+		masterService.addTransaction(new MasterTransaction("credit", sendPolicy.getAmount(), "Customer paid premium"));// customer
 		customerService.addCustomerTransaction(customer.getId(),
-				new CustomerTransaction("debit", sendPolicy.getAmount(), "you but policy"));
+				new CustomerTransaction("deposite", sendPolicy.getAmount(), "Paid premium"));
 
 		policy.setInsurancePlan(insurnacePlan);
 		policy.setCustomer(customer);
-		System.out.println("Inside add policy post mapping: ");
-		System.out.println(sendPolicy.toString());
 		policyService.addPolicy(policy);
 		return ResponseEntity.ok(sendPolicy);
 	}
+	
 
 	@GetMapping("/{id}/activate")
 	public ResponseEntity<String> activatePolicy(@PathVariable("id") int id) {

@@ -25,7 +25,12 @@ public class PolicyRepository {
 	}
 	
 	public List<Policy> getPolicies(){
+		System.out.println("Inside policy repo");
 		return em.createQuery("FROM Policy").getResultList();
+	}
+	
+	public List<Policy> getPoliciesByCustomerId(int id) {
+		return (List<Policy>) em.createQuery("FROM Policy WHERE customerId = "+id+" ").getResultList();
 	}
 	
 	public Policy getPolicyById(int id) {

@@ -2,7 +2,7 @@ package com.monocept.model.dto;
 
 public class ReplyDto {
 
-	String message;
+	private String message;
 
 	public ReplyDto() {
 

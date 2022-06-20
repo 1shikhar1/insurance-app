@@ -4,12 +4,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
 
 @MappedSuperclass
 public class Entity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "entity_seq", strategy = GenerationType.AUTO)
+	@SequenceGenerator(name="entity_seq", initialValue = 100)
 	private int id;
 	private boolean status = true;
 	private boolean isDeleted = false;
